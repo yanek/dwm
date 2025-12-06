@@ -12,7 +12,7 @@
     architectures = ["x86_64-linux" "aarch64-linux"];
   in {
     overlays.default = final: prev: {
-      dwm = prev.dwm.overrideAttrs (oldAttrs: {
+      dwm-nk = prev.dwm.overrideAttrs (oldAttrs: {
         src = self;
       });
     };
@@ -22,7 +22,7 @@
         (import nixpkgs {
           inherit system;
           overlays = [self.overlays.default];
-        }).dwm;
+        }).dwm-nk;
     });
 
     devShells = nixpkgs.lib.genAttrs architectures (system: let

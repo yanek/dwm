@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 5;
@@ -56,6 +58,7 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask
+#define PLAYKEY XF86XK_AudioPlay
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -66,10 +69,11 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu-apps", NULL };
+static const char *dmenucmd[]   = { "dmenu-apps", NULL };
 static const char *powmenucmd[] = { "dmenu-power", NULL };
-static const char *notescmd[] = { "dmenu-notes", NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *notescmd[]   = { "dmenu-notes", NULL };
+static const char *sinkcmd[]    = { "dmenu-audio-sources", NULL };
+static const char *termcmd[]    = { "st", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -77,6 +81,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
   { MODKEY,                       XK_Escape, spawn,          {.v = powmenucmd } },
   { MODKEY,                       XK_n,      spawn,          {.v = notescmd } },
+  { MODKEY,                       PLAYKEY,   spawn,          {.v = sinkcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
